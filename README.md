@@ -1,7 +1,5 @@
 # Slang Life Tracker (UK Edition & Deep Lore)
-
-![Chronos Timeline Visualization](/Users/apple/.gemini/antigravity/brain/04ae6046-de86-4afc-a71c-6594d72bc14c/timeline_zounds_fixed_final_1771325655914.png)
-
+https://dishas-slanglifetracker.streamlit.app/ -deployed link
 ## 1. Project Abstract
 The **Slang Life Tracker** is an advanced linguistic analysis tool designed to track the lifecycle of slang terms from their obscure origins to mainstream saturation and eventual "cringe" status.
 
