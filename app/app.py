@@ -19,124 +19,152 @@ st.set_page_config(page_title="Slang Life Tracker", layout="wide")
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&display=swap');
+    @import url('https://fonts.cdnfonts.com/css/butler'); /* Fabian De Smet's Butler Font */
 
-    /* Main Background */
+    /* Main Background - Navy */
     .stApp {
-        background-color: #fdf6e3; /* Soft off-white */
+        background-color: #25344F; 
         font-family: 'Fredoka', sans-serif;
+        color: #D5B893;
     }
 
-    /* Bubble Cards */
+    /* Bubble Cards - Brown with Beige Border */
     .bubble-card {
-        background-color: #ffffff;
-        border: 3px solid #000000;
-        border-radius: 25px;
+        background-color: #6F4D38;
+        border: 2px solid #D5B893;
+        border-radius: 15px;
         padding: 20px;
-        box-shadow: 10px 10px 0px #000000;
+        box-shadow: 5px 5px 0px #1a253a; /* Darker Navy shadow */
         margin-bottom: 20px;
-        transition: transform 0.2s;
-    }
-    .bubble-card:hover {
-        transform: translate(-2px, -2px);
-        box-shadow: 12px 12px 0px #000000;
+        color: #D5B893;
     }
 
-    /* Headings */
-    h1, h2, h3 {
-        color: #8A2BE2 !important; /* Electric Purple */
-        font-family: 'Fredoka', sans-serif;
+    /* Headings - Beige - Butler (High Contrast Serif) */
+    h1, h2, h3, h4, h5, h6 {
+        color: #D5B893 !important; 
+        font-family: 'Butler', 'Playfair Display', serif;
         font-weight: 700;
         text-transform: uppercase;
-        text-shadow: 2px 2px 0px #FF69B4; /* Hot Pink Shadow */
+        text-shadow: none;
     }
 
-    /* Metrics using Streamlit's class usually needs inspection, 
-       but we can wrap them in container divs or target generic classes if needed. 
-       For now, targeting the metric label/value. */
+    /* Metrics */
     div[data-testid="stMetricValue"] {
-        color: #000000 !important;
+        color: #D5B893 !important;
         font-family: 'Fredoka', sans-serif;
         font-weight: 600;
     }
     div[data-testid="stMetricLabel"] {
-        color: #8A2BE2 !important;
+        color: #617891 !important; /* Slate */
         font-weight: bold;
     }
 
-    /* Buttons - Pill Shaped & Pop */
+    /* Buttons - Burgundy with Beige Text */
     div.stButton > button {
-        background-color: #00FFFF; /* Neon Cyan */
-        color: #000000;
-        border: 3px solid #000000;
-        border-radius: 50px; /* Pill shape */
+        background-color: #632024; 
+        color: #D5B893;
+        border: 2px solid #D5B893;
+        border-radius: 5px; 
         font-family: 'Fredoka', sans-serif;
         font-weight: bold;
         font-size: 18px;
         padding: 10px 30px;
-        box-shadow: 5px 5px 0px #000000;
+        box-shadow: 4px 4px 0px #1a253a;
         transition: all 0.2s;
     }
     div.stButton > button:hover {
-        background-color: #FF69B4; /* Hot Pink */
-        color: #ffffff;
-        transform: translate(-2px, -2px);
-        box-shadow: 7px 7px 0px #000000;
-        border-color: #000000;
+        background-color: #D5B893; 
+        color: #25344F; /* Navy Text */
+        transform: translate(-1px, -1px);
+        box-shadow: 6px 6px 0px #1a253a;
+        border-color: #632024;
     }
     div.stButton > button:active {
         transform: translate(2px, 2px);
-        box-shadow: 2px 2px 0px #000000;
+        box-shadow: 1px 1px 0px #1a253a;
     }
 
-    /* Inputs */
+    /* Inputs - Slate Background */
     .stTextInput > div > div > input {
-        background-color: #ffffff;
-        color: #000000;
-        border: 3px solid #8A2BE2;
-        border-radius: 50px;
+        background-color: #617891;
+        color: #D5B893;
+        border: 2px solid #D5B893;
+        border-radius: 10px;
         font-family: 'Fredoka', sans-serif;
-        padding-left: 20px;
-        box-shadow: 5px 5px 0px #000000;
+        padding-left: 15px;
+    }
+    /* Input Label */
+    .stTextInput label {
+        color: #D5B893 !important;
     }
 
-    /* Sidebar */
+    /* Sidebar - Slate */
     section[data-testid="stSidebar"] {
-        background-color: #FFE4E1; /* Misty Rose */
-        border-right: 3px solid #000000;
+        background-color: #617891; 
+        border-right: 2px solid #25344F;
+    }
+    
+    /* Info Box Styling (Streamlit's st.info) */
+    .stAlert {
+        background-color: #6F4D38;
+        color: #D5B893;
+        border: 1px solid #D5B893;
     }
 
-    /* Custom Badges */
-    .badge {
-        display: inline-block;
-        padding: 5px 15px;
-        border-radius: 50px;
-        border: 2px solid #000000;
-        font-weight: bold;
-        box-shadow: 3px 3px 0px #000000;
-        margin-right: 10px;
-    }
-    .badge-fresh {
-        background-color: #00FF7F; /* Spring Green */
-        color: #000000;
-    }
-    .badge-cringe {
-        background-color: #FF4500; /* Orange Red */
-        color: #ffffff;
-        animation: blink 1s infinite;
-    }
-    .badge-mainstream {
-        background-color: #FFD700; /* Gold */
-        color: #000000;
-    }
-
-    @keyframes blink {
-        50% { opacity: 0.5; }
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+        /* Reduce main container padding */
+        .block-container {
+            padding-top: 3rem !important;
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+        }
+        
+        /* Adjust headings */
+        h1 { font-size: 2.2rem !important; }
+        h2 { font-size: 1.8rem !important; }
+        h3 { font-size: 1.4rem !important; }
+        
+        /* Compact cards */
+        .bubble-card {
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 3px 3px 0px #1a253a;
+        }
+        .bubble-card:hover {
+            transform: none; /* Disable hover effect on touch */
+            box-shadow: 3px 3px 0px #1a253a;
+        }
+        
+        /* Full width buttons */
+        div.stButton > button {
+            width: 100%;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        /* Adjust metrics */
+        div[data-testid="stMetricValue"] {
+            font-size: 1.8rem !important;
+        }
+        
+        /* Hide complex decoration if needed or adjust badges */
+        .badge {
+            padding: 3px 10px;
+            font-size: 0.8rem;
+        }
+        
+        /* Adjust chart margins */
+        .js-plotly-plot {
+            margin-left: -10px !important; 
+            margin-right: -10px !important;
+        }
     }
 
     </style>
 """, unsafe_allow_html=True)
 
-st.title("🫧 Slang Life Tracker")
+st.title("Slang Life Tracker")
 
 # ... (Previous imports and setup remain similar)
 
@@ -148,13 +176,13 @@ if 'target_word' not in st.session_state:
 
 # Sidebar
 with st.sidebar:
-    st.header("🎛 Controls")
+    st.header("Controls")
     # Bind text input to session state
     target_word_input = st.text_input("Pop a Word", value=st.session_state.target_word)
     analyze_btn = st.button("Uncover Truth")
     
     st.markdown("---")
-    st.caption("📜 From the 1600s to 2026\nTracking Linguistic Evolution")
+    st.caption("From the 1600s to 2026\nTracking Linguistic Evolution")
 
 if analyze_btn:
     st.session_state.searched = True
@@ -186,13 +214,13 @@ if st.session_state.searched:
             
             if status == "Niche":
                 cringe_level = 10
-                color = "#00ffff" # Cyan
+                color = "#617891" # Slate
             elif status == "Peak" or status == "Mainstream":
                 cringe_level = 50
-                color = "#ff69b4" # Pink
+                color = "#D5B893" # Beige
             elif status == "Cringe":
                 cringe_level = 100
-                color = "#ff0000" # Red
+                color = "#632024" # Burgundy
                 
             col1, col2 = st.columns([1, 2])
             
@@ -207,7 +235,7 @@ if st.session_state.searched:
 
             # WAVE GRAPH VISUALIZATION
             st.markdown("---")
-            st.subheader("🌊 The Cultural Wave (1600 - 2026)")
+            st.subheader("The Cultural Wave (1600 - 2026)")
             
             timeline_data = lifecycle.get_timeline_data(target_word)
             
@@ -229,7 +257,7 @@ if st.session_state.searched:
                 colors = []
                 sizes = []
                 
-                neon_palette = ['#FF6EC7', '#00FFFF', '#CCFF00', '#BF00FF', '#FF0000', '#FFFF00']
+                vintage_palette = ['#D5B893', '#617891', '#6F4D38', '#632024', '#FFFFFF']
 
                 for p in all_points:
                     if p['word'] == target['word']:
@@ -238,7 +266,7 @@ if st.session_state.searched:
                         sizes.append(40)
                     else:
                         heights.append(random.uniform(0.3, 0.7))
-                        colors.append(random.choice(neon_palette))
+                        colors.append(random.choice(vintage_palette))
                         sizes.append(20)
 
                 fig = go.Figure()
@@ -250,7 +278,7 @@ if st.session_state.searched:
                     mode='lines',
                     line=dict(width=0, shape='spline', smoothing=1.3),
                     fill='tozeroy',
-                    fillcolor='rgba(138, 43, 226, 0.2)', # Electric Purple low opacity
+                    fillcolor='rgba(213, 184, 147, 0.2)', # Beige low opacity
                     hoverinfo='skip'
                 ))
 
@@ -265,7 +293,7 @@ if st.session_state.searched:
                     marker=dict(
                         size=sizes, 
                         color=colors, 
-                        line=dict(width=2, color='white'),
+                        line=dict(width=2, color='#25344F'),
                         opacity=1.0
                     ),
                     hoverinfo='text+x',
@@ -273,15 +301,16 @@ if st.session_state.searched:
                 ))
                 
                 fig.update_layout(
-                    title="✨ Contextual Peaks ✨",
-                    title_font=dict(size=20, color="#FF6EC7"),
+                    title="Contextual Peaks",
+                    title_font=dict(size=20, color="#D5B893"),
                     xaxis=dict(
                         title="Time-Space Continuum", 
                         range=[1600, 2030], 
                         showgrid=False,
-                        color="white"
+                        color="#D5B893",
+                        fixedrange=True
                     ),
-                    yaxis=dict(showgrid=False, zeroline=False, showticklabels=False, range=[0, 1.3]),
+                    yaxis=dict(showgrid=False, zeroline=False, showticklabels=False, range=[0, 1.3], fixedrange=True),
                     height=400,
                     paper_bgcolor='rgba(0,0,0,0)',
                     plot_bgcolor='rgba(0,0,0,0)',
@@ -289,7 +318,7 @@ if st.session_state.searched:
                     margin=dict(t=50, b=0, l=0, r=0)
                 )
                 
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
             else:
                  st.info("Timeline unavailable.")
         else:
@@ -297,14 +326,14 @@ if st.session_state.searched:
 
 else:
     # LANDING PAGE STATE
-    st.title("👋 Welcome to the SlangVerse")
+    st.title("Welcome to the SlangVerse")
     st.markdown("### Don't let your vocabulary flop.")
     
     # Show a random "Word of the Moment"
-    st.info("💡 **Tip:** Search for 'Rizz', 'Cooked', or go old school with 'Zounds'.")
+    st.info("**Tip:** Search for 'Rizz', 'Cooked', or go old school with 'Zounds'.")
     
     # Show a decorative random timeline immediately to populate the screen
-    st.subheader("🎲 Random Context Trace")
+    st.subheader("Random Context Trace")
     
     # Mock a random wave for visual interest
     random_target = "Rizz" # Default placeholder
@@ -319,28 +348,28 @@ else:
         names = [p['word'] for p in all_points]
         years = [p['year'] for p in all_points]
         heights = [random.uniform(0.3, 0.8) for _ in all_points]
-        colors = ['#FF6EC7', '#00FFFF', '#CCFF00', '#BF00FF', '#FF0000', '#FFFF00'] * 2
+        colors = ['#D5B893', '#617891', '#6F4D38', '#632024', '#FFFFFF'] * 2
         
         fig = go.Figure()
         fig.add_trace(go.Scatter(
             x=years, y=heights, mode='lines', 
-            line=dict(width=2, color='#00FFFF', shape='spline'),
-            fill='tozeroy', fillcolor='rgba(0, 255, 255, 0.1)'
+            line=dict(width=2, color='#D5B893', shape='spline'),
+            fill='tozeroy', fillcolor='rgba(213, 184, 147, 0.1)'
         ))
         fig.add_trace(go.Scatter(
             x=years, y=heights, mode='markers',
-            marker=dict(size=15, color=colors[:len(years)], line=dict(width=1, color='white'))
+            marker=dict(size=15, color=colors[:len(years)], line=dict(width=1, color='#25344F'))
         ))
         fig.update_layout(
-             xaxis=dict(showgrid=False, showticklabels=False),
-             yaxis=dict(showgrid=False, showticklabels=False),
+             xaxis=dict(showgrid=False, showticklabels=False, fixedrange=True),
+             yaxis=dict(showgrid=False, showticklabels=False, fixedrange=True),
              height=300,
              paper_bgcolor='rgba(0,0,0,0)',
              plot_bgcolor='rgba(0,0,0,0)',
              showlegend=False,
              margin=dict(t=0, b=0, l=0, r=0)
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True, config={'displayModeBar': False})
 
 st.markdown("---")
 # Footer moved to Sidebar roughly, or just kept here if Sidebar is too crowded.

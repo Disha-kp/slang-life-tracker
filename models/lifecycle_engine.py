@@ -82,12 +82,37 @@ class LifecycleEngine:
         print(f"Deep Search triggered for {word}...")
         results = search_global_feed(word)
         
-        # Heuristic Analysis for new words (Mock for now, real implementation would analyze text)
-        status = "Emerging"
-        meaning = "Discovered via Deep Search. Analysis pending."
+        # Heuristic Analysis for new words
+        status = "Unverified"
+        meaning = "Deep search returned no results. Try again later."
         origin_era = "2026 (New)"
         category = "Unknown"
         
+        if results:
+            import random
+            # Filter for decent length results
+            valid_results = [r for r in results if r and len(r.strip()) > 10]
+            
+            if valid_results:
+                # 1. Try to find "is a" or "means"
+                def_candidates = [r for r in valid_results if f" means " in r or f" is a " in r]
+                
+                selected_text = ""
+                if def_candidates:
+                    selected_text = random.choice(def_candidates)
+                else:
+                    selected_text = random.choice(valid_results)
+                
+                # Clean up newlines
+                selected_text = selected_text.replace('\n', ' ').strip()
+                
+                # Truncate
+                if len(selected_text) > 200:
+                    selected_text = selected_text[:197] + "..."
+                    
+                meaning = f"Context: \"{selected_text}\""
+                status = "Emerging"
+
         # Save to DB
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
@@ -102,7 +127,8 @@ class LifecycleEngine:
             'word': word,
             'meaning': meaning,
             'origin_era': origin_era,
-            'status_2026': status
+            'status_2026': status,
+            'category': category
         }
 
     def get_timeline_data(self, target_word):
