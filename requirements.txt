@@ -1,0 +1,23 @@
+# Web Framework
+streamlit>=1.31
+plotly>=5.18
+
+# Data Processing
+pandas>=2.2
+numpy>=1.26
+
+# Web Scraping
+requests>=2.31
+beautifulsoup4>=4.12
+praw>=7.7
+
+# Environment & Config
+python-dotenv>=1.0
+
+# NLP
+nltk>=3.8
+
+# Development (optional)
+pytest>=7.4
+black>=23.12
+pylint>=3.0
